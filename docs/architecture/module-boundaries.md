@@ -20,13 +20,13 @@
 | `identity-access` | Internal user identity, actor resolution, authentication integration boundary, roles and grants | Foundation; no domain-module dependency |
 | `learner-profile-goals` | Learner profile, consent and independent language-learning goals | `identity-access`; reference data owned by `curriculum` only through its public interface |
 | `organizations` | Organization, membership, roles, cohorts and tenant scope | `identity-access`; commercial entitlement check through `commercial` public operations where needed |
-| `curriculum` | Language/competency reference data, curriculum, courses, lessons and published content versions | `governance` for controlled review/publication workflow; must not depend on learner UI |
+| `curriculum` | Language reference data, curriculum, courses, lessons and published content versions | `governance` for controlled review/publication workflow; must not depend on learner UI |
 | `governance` | Content/examination review, approval, publication and immutable version lifecycle | `identity-access`, `audit-oversight`; invokes owner-module operations rather than owning their records |
 | `learning` | Enrollment/assignment context, lesson delivery, learner activity and resumable attempts | `curriculum`, `identity-access`; `organizations` when institution assignment/scope applies |
 | `question-bank` | Versioned reusable questions and their ownership/availability rules | `curriculum` reference values and `governance` publication boundary, as applicable |
 | `examinations` | Examination definition/configuration, secure attempts and response history | `question-bank`, `identity-access`; `organizations` for tenant-private exams |
 | `evaluation` | Objective/manual marking, evaluation provenance and finalized results | `examinations`; rules must preserve institution-owned medical-knowledge results as distinct from VocaClin language evidence |
-| `progress-competencies` | Competency model, evidence and skill-wise progress | `learning`, `evaluation`; does not claim official proficiency certification |
+| `progress-competencies` | Canonical competency definitions/model, evidence and skill-wise progress | `learning`, `evaluation`; does not claim official proficiency certification |
 | `placement-assessment` | Optional placement journey and indicative placement evidence | `learner-profile-goals`, `curriculum`, `evaluation`; placement does not issue CEFR certification |
 | `credentials` | Issuer-aware course-completion records and credential lifecycle | `curriculum`, `learning`, `evaluation`; Release 1 excludes validated VocaClin proficiency credentials |
 | `commercial` | Product access, subscription/entitlement records and commercial policy | `identity-access`, `organizations`; payment provider integration is an adapter, not domain ownership |

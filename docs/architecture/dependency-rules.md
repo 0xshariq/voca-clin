@@ -39,4 +39,4 @@ These rules summarize `scope.md` for implementation reviews. The architecture an
 
 ## Phase gate
 
-Before implementing runtime schemas, select and approve a runtime validation library. Before selecting test commands, settle the test framework and add its scripts in the relevant approved phase. Phase 0 records current tooling and unresolved choices; it does not install dependencies or begin feature implementation.
+Before implementing runtime schemas, select and approve a runtime validation library. Select the test framework and commands during Phase 0, then add or change test scripts in the relevant approved implementation phase, such as Phase 1. Phase 0 records current tooling and unresolved choices; it does not install dependencies or begin feature implementation.
