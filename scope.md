@@ -346,6 +346,8 @@ Finalize the engineering roadmap before production implementation begins. This p
 | `docs/architecture/dependency-rules.md` | Review/modify | Record allowed dependencies, public interfaces and forbidden imports |
 | `docs/development/local-development.md` | Review/modify | Ensure setup instructions match actual toolchain decisions |
 | `docs/decisions/README.md` | Review/modify | Explain how approved/superseded engineering decisions are recorded |
+| `docs/design-inventory.md` | Create/modify | Map the paired desktop/mobile designs to proposed experiences/routes/features and identify Release 1 versus later concepts |
+| `docs/open-decisions.md` | Create/modify | Group scope decision IDs by owner and implementation gate without inventing approvals |
 | `README.md` | Review/modify | Keep project overview, setup entry point and links accurate |
 
 No production source files or test files are required in Phase 0.
@@ -358,6 +360,12 @@ No production source files or test files are required in Phase 0.
 - Reviewed engineering conventions and testing strategy.
 - Open-decision register with a blocking/non-blocking classification.
 - No invented prices, assessment standards, review SLAs, retention periods or legal claims.
+
+### Phase 0 review package (prepared, approvals pending)
+
+The repository review package is maintained in `docs/architecture/project-structure.md`, `docs/architecture/module-boundaries.md`, `docs/architecture/dependency-rules.md`, `docs/design-inventory.md`, `docs/open-decisions.md`, `docs/development/local-development.md` and `docs/decisions/README.md`. The screen/route and module-dependency maps are proposals derived from this roadmap and the supplied design filenames; they are not product-owner approval. In particular, confirm the 10 Platform Operations design screens against the eight approved functional areas, approve proposed URLs and release mapping, and review the missing public-experience designs.
+
+The checked-out repository has the Next.js starter, route-group and module placeholders, and test-category folders, but no pre-existing `docs/` directory, configured test runner, typecheck script or runtime schema validator. Documentation now records that observed baseline; it does not authorize framework/provider choices or install production tooling. `docs/open-decisions.md` groups the existing gates in section 25 without resolving them. Phase 0 remains pending until the required phase reviews and approvals are recorded; creating these documents alone does not satisfy the exit criteria.
 
 ## 6.5 Exit criteria
 

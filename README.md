@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VocaClin
 
-## Getting Started
+VocaClin is a healthcare-language learning and assessment platform. This repository is currently in Phase 0: Release 1 scope and engineering-baseline review. The long-term product direction is context only; implementation is limited to the approved Release 1 scope.
 
-First, run the development server:
+## Start here
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [`AGENTS.md`](./AGENTS.md): repository-wide implementation rules.
+- [`scope.md`](./scope.md): authoritative Release 1 implementation plan, phase order, boundaries, acceptance criteria and open decisions.
+- [`docs/design-inventory.md`](./docs/design-inventory.md): proposed mapping of the 34 desktop/mobile screen pairs in `designs/` to experiences and routes. Route/release decisions require review.
+- [`docs/open-decisions.md`](./docs/open-decisions.md): owner-dependent implementation and launch gates.
+- [`docs/architecture/`](./docs/architecture/): project structure, module ownership and dependency constraints.
+- [`docs/development/local-development.md`](./docs/development/local-development.md): observed package/runtime commands and setup gaps.
+- [`docs/decisions/README.md`](./docs/decisions/README.md): how durable engineering decisions are recorded.
+- [`designs/design-system.png`](./designs/design-system.png): VocaClin visual source of truth; paired responsive screen references live under `designs/desktop/` and `designs/mobile/`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Current state
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The repository contains a Next.js starter and planned source/test directory scaffolding. Most feature files are placeholders; directory presence is not evidence of an implemented capability. Phase 0 is documentation/review work and must not add production source or test files. Do not implement a future-release capability solely because it appears in the long-term discussion or a design mockup.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local development
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The observed package manager is pnpm 11.21.0. Install from the lockfile with `pnpm install --frozen-lockfile`, then run `pnpm dev`. See [`docs/development/local-development.md`](./docs/development/local-development.md) for the available scripts and unresolved tooling decisions. Do not commit environment files or credentials.
