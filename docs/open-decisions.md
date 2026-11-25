@@ -53,9 +53,10 @@
 
 SPEC-05, SPEC-13 and SPEC-14 remain in `scope.md` as later-release or conditional gates; they do not authorize public contributor/organization ecosystems, content-sharing expansion or proficiency credentials in R1.
 
-## Phase 0 implementation conventions to decide before production logic
+## Phase 1 implementation conventions
 
-The checked-out `package.json` provides pnpm scripts and Biome, but no test runner, typecheck script or runtime schema validator. The roadmap says these must be selected before production logic/shared runtime schemas. Product owner/engineering approval must choose and record them in the appropriate upcoming phase; Phase 0 does not install tooling.
+- **Accepted for Phase 1 by the product owner:** Vitest for unit tests and Playwright for browser-level checks. The decision applies to the Phase 1 shell and does not select a runtime schema validator.
+- **Still open before shared runtime schemas or production logic:** select and record the runtime validation library. TypeScript compile-time checking is not a substitute for validating untrusted input.
 
 ## Status
 

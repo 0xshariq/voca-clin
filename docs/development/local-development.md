@@ -1,28 +1,29 @@
-# Local development baseline
+# Local development
 
-This is the observed repository baseline as of the Phase 0 review. Follow repository scripts rather than substituting another package manager. This document does not add or approve production infrastructure.
+Use the repository's declared package manager and scripts. This phase configures local development and browser preview only; it does not select production hosting or service providers.
 
-## Current toolchain
+## Toolchain
 
-- Package manager: pnpm `11.21.0` (declared in `package.json`).
-- Runtime dependency: Next.js `16.4.6`, React `19.3.0`, TypeScript `^5`.
-- Formatter/linter: Biome `2.4.2`.
-- Local website: `pnpm dev` (script `next dev`). The existing workspace preview uses port 3000; a port is not a hard requirement for other local environments.
-- Current scripts: `pnpm dev`, `pnpm build`, `pnpm start`, `pnpm lint` (`biome check`), and `pnpm format` (`biome format --write`).
-- No test runner, typecheck script, database migration command or worker runner is configured in the current package manifest.
+- Package manager: pnpm `11.21.0`.
+- Runtime: Next.js `16.4.6`, React `19.3.0`, TypeScript `^5`.
+- Styling/components: Tailwind CSS v4 and shadcn/ui Base components.
+- Formatting/lint: Biome `2.4.2`.
+- Tests: Vitest for unit tests and Playwright for browser tests.
+- The registered workspace preview runs `pnpm dev` on port 3000. Playwright reuses that development server locally when available.
 
 ## Setup and checks
 
-1. Install the Node.js version supported by the repository/workspace and pnpm 11.21.0.
-2. Install dependencies with `pnpm install --frozen-lockfile` when the lockfile is current.
-3. Run `pnpm dev` for the development server.
-4. `pnpm lint` runs the configured Biome check. `pnpm build` is a production build, not a preview startup command.
-5. Before production logic is written, Phase 0 decisions must select the test framework and runtime validation library; an approved later phase must add their dependencies, scripts and conventions.
+1. Install the supported Node.js version and pnpm 11.21.0.
+2. Run `pnpm install --frozen-lockfile`.
+3. Run `pnpm dev` to start the app.
+4. Use `pnpm typecheck`, `pnpm lint`, and `pnpm test` for local checks.
+5. Install Playwright Chromium once if needed with `pnpm exec playwright install chromium`, then run `pnpm test:e2e`.
+6. Run `pnpm build` for a production build. Do not use it to start the development preview.
 
-Do not assume database, Clerk, object storage, email, AI or queue credentials exist. Use only approved project integrations and documented environment-variable names. Never commit `.env` files, secrets, user data or copied credentials. The Vercel preview environment may inject configured values; do not print their values during diagnostics.
+No application environment variables are required for the Phase 1 foundation. Do not commit `.env` files, secrets, user data or copied credentials. Production integrations and providers must be approved and connected in their relevant phases.
 
-## Known gaps (not Phase 0 implementation)
+## Still open
 
-- The starter README previously described generic create-next-app instructions rather than VocaClin setup; it is replaced with project links and scope boundaries.
-- No `docs/` files or testing framework are present in the checked-out baseline; Phase 0 adds architecture and decision guidance only, not dependencies or production code.
-- Supported Node.js version, runtime schema library, test framework, CI commands, database provider/hosting, authentication provider approval and worker/queue hosting remain decision gates in `scope.md`.
+- Select a runtime schema validator before shared runtime schemas or production logic are added.
+- Resolve the product-owner review gates for the public landing design and proposed feature routes before implementing those screens.
+- Database provider/hosting, authentication provider approval, production hosting, worker/queue hosting and CI remain later-phase decision gates in `scope.md`.
