@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { isNavigationItemActive, type NavigationItem } from "./navigation";
 
@@ -25,6 +27,9 @@ export function MobileNavigation({ items, activePath }: MobileNavigationProps) {
               className="navigation-link"
               href={item.href}
               key={item.href}
+              onClick={(event) => {
+                event.currentTarget.closest("details")?.removeAttribute("open");
+              }}
             >
               {item.label}
             </Link>
