@@ -9,12 +9,14 @@ type ExperienceShellProps = {
   children: ReactNode;
   navigation: NavigationItem[];
   activePath?: string;
+  footer?: ReactNode | false;
 };
 
 export function ExperienceShell({
   children,
   navigation,
   activePath,
+  footer,
 }: ExperienceShellProps) {
   return (
     <div className="experience-shell">
@@ -32,12 +34,16 @@ export function ExperienceShell({
         </div>
       </header>
       {children}
-      <footer className="site-footer">
-        <div className="site-footer-inner">
-          <AppBrand />
-          <p>Product foundation in progress. More details will follow.</p>
-        </div>
-      </footer>
+      {footer === false
+        ? null
+        : (footer ?? (
+            <footer className="site-footer">
+              <div className="site-footer-inner">
+                <AppBrand />
+                <p>© VocaClin · RicOz Innovation</p>
+              </div>
+            </footer>
+          ))}
     </div>
   );
 }

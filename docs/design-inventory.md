@@ -1,6 +1,6 @@
 # Design inventory and route mapping
 
-This is a Phase 0 working inventory of the supplied UX Pilot website designs. `scope.md` determines Release 1 functionality; a mockup alone never authorizes a feature. All 34 desktop and 34 mobile files are treated as paired responsive references for website routes, not native mobile applications. Confirm the proposed route names and release mapping with the product owner before Phase 1 builds screens.
+This is a Phase 0 working inventory of the supplied UX Pilot website designs. `scope.md` determines Release 1 functionality; a mockup alone never authorizes a feature. The 34 learner, institution, contributor and Platform Operations screens have paired desktop/mobile references. Additional public website references have since been added: homepage (desktop/mobile), sign-in, sign-up, institutional enquiry and an authentication-state overview (desktop-only). These are responsive website references, not native mobile applications. The current public routes are `/`, `/sign-in`, `/sign-up` and `/institutions/enquiry`; treat the desktop-only references as the source of truth and adapt them responsively where no mobile image exists.
 
 `designs/design-system.png` is the visual source of truth. It specifies the VocaClin teal brand color, Ink/Soft Teal/Canvas surfaces, typography (Plus Jakarta Sans headings and Inter body), spacing, component states, accessible contrast/focus, experience-specific navigation, privacy and responsive behavior. Use it alongside the screen reference; do not invent an incompatible visual language.
 
@@ -52,13 +52,23 @@ These six contributor screens are present in both device folders, but the R1 sco
 | Contributor | Contribution history | `desktop/contributor/contribution-history.png` | `mobile/contributor/contribution-history.png` | `/contributor/history` | Defer public contributor profile/history |
 | Contributor | Profile and settings | `desktop/contributor/profile-and-settings.png` | `mobile/contributor/profile-and-settings.png` | `/contributor/settings` | Defer public contributor account experience |
 
-The 10 Platform Operations screens above are candidates, not confirmation of the eight functional areas in the scope. Grouping, route consolidation and role-specific access must be reconciled with the approved Platform Operations requirements. The public product, sign-up/sign-in and institutional enquiry experience has no dedicated reference in these 68 files and requires an explicitly approved design before implementation.
+The 10 Platform Operations screens above are candidates, not confirmation of the eight functional areas in the scope. Grouping, route consolidation and role-specific access must be reconciled with the approved Platform Operations requirements. The added public/authentication references close the earlier visual-reference gap for the homepage, sign-in, sign-up and institutional enquiry screens; they do not authorize authentication, email delivery, or enquiry submission behavior. Those behaviors remain outside Phase 1 and require their planned implementation phases and approvals.
+
+## Public Release 1 references
+
+| Screen | Desktop file | Mobile file | Route/use |
+|---|---|---|---|
+| Homepage | `desktop/homepage.png` | `mobile/homepage.png` | `/` |
+| Sign-in | `desktop/sign-in.png` | Not supplied | `/sign-in`; adapt the desktop reference responsively |
+| Sign-up | `desktop/sign-up.png` | Not supplied | `/sign-up`; adapt the desktop reference responsively |
+| Institutional enquiry | `desktop/institution-enquiry.png` | Not supplied | `/institutions/enquiry`; adapt the desktop reference responsively |
+| Authentication states | `desktop/authentication-states.png` | Not supplied | Reference for later auth-state workflows; not a standalone route |
 
 ## Inventory audit
 
-- Desktop: 34 files (10 admin, 6 contributor, 8 institution, 10 learner).
-- Mobile: 34 files (10 admin, 6 contributor, 8 institution, 10 learner).
-- Paired logical screen count: 34.
+- Desktop: 39 screen files (10 admin, 6 contributor, 8 institution, 10 learner, 5 public/auth references).
+- Mobile: 35 screen files (10 admin, 6 contributor, 8 institution, 10 learner, 1 public homepage).
+- Paired logical screen count: 35 (the original 34 experience screens plus homepage); four additional desktop-only public/auth references.
 - Filename mismatches: mobile admin examination governance omits `-management`; mobile learner dashboard is `dasboard.png` (typo). Preserve these supplied filenames unless assets are deliberately renamed.
 - No separate native app screens identified; mobile files are responsive website references.
 
