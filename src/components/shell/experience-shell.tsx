@@ -40,7 +40,7 @@ export function ExperienceShell({
             <footer className="site-footer">
               <div className="site-footer-inner">
                 <AppBrand />
-                <p>© VocaClin · RicOz Innovation</p>
+                <p>© VocaClin</p>
               </div>
             </footer>
           ))}
