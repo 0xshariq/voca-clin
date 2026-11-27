@@ -325,7 +325,7 @@ Finalize the engineering roadmap before production implementation begins. This p
 1. Review this complete `scope.md` and approve/revise each phase.
 2. Confirm the module dependency graph and prohibited import directions.
 3. Confirm the project-folder responsibilities already discussed.
-4. Map the 68 UX Pilot website designs (34 desktop and 34 mobile) to experiences, route groups, routes and frontend features. The design system is the visual source of truth. Confirm that all screens are website designs, not native mobile-app screens.
+4. Map the original 68 UX Pilot experience designs (34 desktop and 34 mobile) and the subsequently added public/authentication references (39 desktop and 35 mobile screen files total) to experiences, routes and frontend features. The design system is the visual source of truth. Confirm that all screens are website designs, not native mobile-app screens.
 5. Identify which designs are Release 1 screens and which represent later-release concepts. A screen in the design set does not automatically authorize its full functionality in R1.
 6. Confirm which screens share a responsive route and which are distinct route-level workflows.
 7. Review the existing `AGENTS.md`, README and architecture documents for consistency with the approved project structure.
@@ -363,16 +363,16 @@ No production source files or test files are required in Phase 0.
 
 ### Phase 0 review package (prepared, approvals pending)
 
-The repository review package is maintained in `docs/architecture/project-structure.md`, `docs/architecture/module-boundaries.md`, `docs/architecture/dependency-rules.md`, `docs/design-inventory.md`, `docs/open-decisions.md`, `docs/development/local-development.md` and `docs/decisions/README.md`. The screen/route and module-dependency maps are proposals derived from this roadmap and the supplied design filenames; they are not product-owner approval. In particular, confirm the 10 Platform Operations design screens against the eight approved functional areas, approve proposed URLs and release mapping, and review the missing public-experience designs.
+The Phase 0 documentation baseline is prepared in `docs/architecture/project-structure.md`, `docs/architecture/module-boundaries.md`, `docs/architecture/dependency-rules.md`, `docs/design-inventory.md`, `docs/open-decisions.md`, `docs/development/local-development.md` and `docs/decisions/README.md`. The screen/route and module-dependency maps remain proposals except where the product owner has explicitly directed implementation. The added public references now cover the homepage, sign-in, sign-up and institutional enquiry screens; there is no mobile-specific reference for the latter three, so use their desktop designs as the source and adapt responsively. Confirm the 10 Platform Operations design screens against the eight approved functional areas and approve any other proposed URLs/release mappings before implementing those screens.
 
-The checked-out repository has the Next.js starter, route-group and module placeholders, and test-category folders, but no pre-existing `docs/` directory, configured test runner, typecheck script or runtime schema validator. Documentation now records that observed baseline; it does not authorize framework/provider choices or install production tooling. `docs/open-decisions.md` groups the existing gates in section 25 without resolving them. Phase 0 remains pending until the required phase reviews and approvals are recorded; creating these documents alone does not satisfy the exit criteria.
+The repository review package records the observed structure, tooling and unresolved decisions; it does not authorize framework/provider choices or resolve the gates in `docs/open-decisions.md`. The Phase 0 documentation deliverable is in place, while Phase 0 review/approval exit criteria remain pending until the required reviews are recorded. This distinction does not block the explicitly requested Phase 1 public-page implementation.
 
 ## 6.5 Exit criteria
 
 - Every phase has been reviewed and approved at the level needed to start it.
 - Phase 1 package/tooling choices and company-approval constraints are understood.
 - No unresolved decision blocks the first implementation slice.
-- The 68-screen design inventory is available for frontend implementation planning.
+- The design inventory is available for frontend planning (original paired experience screens plus added public/authentication references, currently 39 desktop and 35 mobile files).
 
 ---
 

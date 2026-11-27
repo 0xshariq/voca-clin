@@ -13,9 +13,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "VocaClin — Healthcare language learning",
+  title: "VocaClin | Healthcare language learning and assessment",
   description:
-    "VocaClin is building a thoughtful learning space for English in healthcare communication.",
+    "Build, practise and evidence healthcare communication skills with VocaClin.",
   applicationName: "VocaClin",
 };
 
