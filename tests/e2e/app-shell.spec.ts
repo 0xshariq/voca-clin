@@ -24,8 +24,12 @@ test("mobile navigation reaches the how-it-works section", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
-  const menu = page.getByText("Menu", { exact: true });
+  const menu = page.getByRole("button", { name: "Open navigation menu" });
   await expect(menu).toBeVisible();
+  await expect(page.locator(".mobile-navigation")).toHaveAttribute(
+    "data-hydrated",
+    "true",
+  );
   await menu.click();
 
   const mobileNavigation = page.getByRole("navigation", {
