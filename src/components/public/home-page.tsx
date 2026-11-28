@@ -33,18 +33,21 @@ import {
 
 const challenges = [
   {
+    id: "specialised-vocabulary",
     icon: Languages,
     title: "Specialised vocabulary",
     description:
       "Clinical terms and everyday patient wording are both needed to be understood.",
   },
   {
+    id: "professional-interaction",
     icon: UsersRound,
     title: "Professional interaction",
     description:
       "Handovers, consent conversations and team updates demand accuracy and tone.",
   },
   {
+    id: "evidence-of-progress",
     icon: ChartNoAxesCombined,
     title: "Evidence of progress",
     description:
@@ -313,11 +316,11 @@ export function HomePage() {
             conversations and precise handovers, often under time pressure.
           </p>
           <div className="challenge-grid">
-            {challenges.map(({ icon: Icon, title, description }) => (
+            {challenges.map(({ icon: Icon, id, title, description }) => (
               <Card
-                aria-labelledby={`challenge-${title}`}
+                aria-labelledby={`challenge-${id}`}
                 className="feature-card"
-                key={title}
+                key={id}
                 role="article"
               >
                 <CardHeader>
@@ -325,7 +328,7 @@ export function HomePage() {
                     <Icon aria-hidden="true" />
                   </span>
                   <CardTitle>
-                    <h3 id={`challenge-${title}`}>{title}</h3>
+                    <h3 id={`challenge-${id}`}>{title}</h3>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -386,7 +389,11 @@ export function HomePage() {
         className="capabilities-section"
       >
         <div className="site-container capabilities-grid">
-          <Card className="capability-card" role="article">
+          <Card
+            className="capability-card"
+            id="explore-learning"
+            role="article"
+          >
             <CardHeader>
               <BookOpen aria-hidden="true" className="feature-icon" />
               <CardTitle>

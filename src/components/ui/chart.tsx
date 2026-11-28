@@ -55,9 +55,9 @@ function ChartContainer({
     height: number;
   };
 }) {
-  const uniqueId = React.useId();
-  const chartIdentifier = (id ?? uniqueId).replace(/[^a-zA-Z0-9_-]/g, "");
-  const chartId = `chart-${chartIdentifier || "plot"}`;
+  const uniqueId = React.useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  const chartIdentifier = (id ?? "plot").replace(/[^a-zA-Z0-9_-]/g, "");
+  const chartId = `chart-${chartIdentifier || "plot"}-${uniqueId}`;
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -81,9 +81,9 @@ function ChartContainer({
   );
 }
 
-const safeChartKey = /^[a-zA-Z_][a-zA-Z0-9_-]*$/;
+const safeChartKey = /^[a-zA-Z0-9_-]+$/;
 const safeChartColor =
-  /^(?:#[\da-f]{3,8}|[a-z]+|(?:rgb|rgba|hsl|hsla|oklch)\([\da-z.%\s,+()/-]+\)|var\(--[a-z_][a-z0-9_-]*\))$/i;
+  /^(?:#[\da-f]{3,8}|[a-z]+|(?:rgb|rgba|hsl|hsla|oklab|oklch|color)\([\da-z.%\s,+()/-]+\)|var\(--[a-z_][a-z0-9_-]*\))$/i;
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const styles = Object.entries(THEMES)
@@ -183,6 +183,7 @@ function ChartTooltipContent({
   }
 
   const nestLabel = payload.length === 1 && indicator !== "dot";
+  const entryKeyCounts = new Map<string, number>();
 
   return (
     <div
@@ -197,12 +198,16 @@ function ChartTooltipContent({
           .filter((item) => item.type !== "none")
           .map((item, index) => {
             const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`;
+            const entryKey = getUniquePayloadKey(
+              String(item.dataKey ?? item.name ?? item.value ?? key),
+              entryKeyCounts,
+            );
             const itemConfig = getPayloadConfigFromPayload(config, item, key);
             const indicatorColor = color ?? item.payload?.fill ?? item.color;
 
             return (
               <div
-                key={key}
+                key={entryKey}
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center",
@@ -284,6 +289,8 @@ function ChartLegendContent({
     return null;
   }
 
+  const entryKeyCounts = new Map<string, number>();
+
   return (
     <div
       className={cn(
@@ -296,11 +303,15 @@ function ChartLegendContent({
         .filter((item) => item.type !== "none")
         .map((item) => {
           const key = `${nameKey ?? item.dataKey ?? "value"}`;
+          const entryKey = getUniquePayloadKey(
+            String(item.dataKey ?? item.value ?? item.payload ?? key),
+            entryKeyCounts,
+          );
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
           return (
             <div
-              key={key}
+              key={entryKey}
               className={cn(
                 "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
               )}
@@ -321,6 +332,12 @@ function ChartLegendContent({
         })}
     </div>
   );
+}
+
+function getUniquePayloadKey(identity: string, counts: Map<string, number>) {
+  const occurrence = counts.get(identity) ?? 0;
+  counts.set(identity, occurrence + 1);
+  return JSON.stringify([identity, occurrence]);
 }
 
 function getPayloadConfigFromPayload(

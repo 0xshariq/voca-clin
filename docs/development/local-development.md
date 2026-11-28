@@ -24,6 +24,5 @@ No application environment variables are required for the Phase 1 foundation. Do
 
 ## Still open
 
-- Select a runtime schema validator before shared runtime schemas or production logic are added.
-- Resolve the product-owner review gates for the public landing design and proposed feature routes before implementing those screens.
+- Product-owner review gates for proposed feature routes and R1/later-release mappings remain open; the public homepage was explicitly authorized as a Phase 1 presentation surface.
 - Database provider/hosting, authentication provider approval, production hosting, worker/queue hosting and CI remain later-phase decision gates in `scope.md`.

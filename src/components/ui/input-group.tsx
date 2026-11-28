@@ -48,6 +48,7 @@ const inputGroupAddonVariants = cva(
 function InputGroupAddon({
   className,
   align = "inline-start",
+  onClick,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
@@ -55,6 +56,27 @@ function InputGroupAddon({
       data-slot="input-group-addon"
       data-align={align}
       className={cn(inputGroupAddonVariants({ align }), className)}
+      // biome-ignore lint/a11y/noStaticElementInteractions: this pointer convenience focuses the existing input; it is not a separate action.
+      // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard users can focus the input directly.
+      onClick={(event) => {
+        onClick?.(event);
+
+        if (
+          event.defaultPrevented ||
+          !(event.target instanceof Element) ||
+          event.target.closest(
+            'button, a, input, textarea, select, [role="button"], [role="link"]',
+          )
+        ) {
+          return;
+        }
+
+        event.currentTarget.parentElement
+          ?.querySelector<HTMLElement>(
+            ':scope > [data-slot="input-group-control"]',
+          )
+          ?.focus();
+      }}
       {...props}
     />
   );

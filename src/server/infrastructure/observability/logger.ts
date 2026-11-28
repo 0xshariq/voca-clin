@@ -20,9 +20,6 @@ const logLevelPriority: Record<LogLevel, number> = {
   error: 40,
 };
 
-const sensitiveField =
-  /(authorization|cookie|email|password|secret|token|payload|content)/i;
-
 function writeLog(level: LogLevel, event: string, context: LogContext = {}) {
   const minimumLevel = getServerEnvironment().LOG_LEVEL;
 
@@ -31,9 +28,13 @@ function writeLog(level: LogLevel, event: string, context: LogContext = {}) {
   }
 
   const requestId = getRequestContext()?.requestId;
-  const safeContext = Object.fromEntries(
-    Object.entries(context).filter(([key]) => !sensitiveField.test(key)),
-  );
+  const safeContext = {
+    operation: context.operation,
+    routeTemplate: context.routeTemplate,
+    statusCode: context.statusCode,
+    durationMs: context.durationMs,
+    errorCode: context.errorCode,
+  };
   const entry = {
     timestamp: new Date().toISOString(),
     level,
