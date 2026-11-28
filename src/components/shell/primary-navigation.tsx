@@ -1,4 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
 import { isNavigationItemActive, type NavigationItem } from "./navigation";
 
 type PrimaryNavigationProps = {
@@ -11,23 +19,29 @@ export function PrimaryNavigation({
   activePath,
 }: PrimaryNavigationProps) {
   return (
-    <nav aria-label="Primary navigation" className="primary-navigation">
-      {items.map((item) => {
-        const active = activePath
-          ? isNavigationItemActive(activePath, item.href)
-          : false;
+    <NavigationMenu
+      className="primary-navigation"
+      aria-label="Primary navigation"
+    >
+      <NavigationMenuList>
+        {items.map((item) => {
+          const active = activePath
+            ? isNavigationItemActive(activePath, item.href)
+            : false;
 
-        return (
-          <Link
-            aria-current={active ? "page" : undefined}
-            className="navigation-link"
-            href={item.href}
-            key={item.href}
-          >
-            {item.label}
-          </Link>
-        );
-      })}
-    </nav>
+          return (
+            <NavigationMenuItem key={item.href}>
+              <NavigationMenuLink
+                aria-current={active ? "page" : undefined}
+                className="navigation-link"
+                render={<Link href={item.href} />}
+              >
+                {item.label}
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          );
+        })}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }

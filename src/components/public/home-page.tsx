@@ -13,21 +13,41 @@ import {
   UsersRound,
 } from "lucide-react";
 import Link from "next/link";
+import type { ReactNode } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const challenges = [
   {
+    id: "specialised-vocabulary",
     icon: Languages,
     title: "Specialised vocabulary",
     description:
       "Clinical terms and everyday patient wording are both needed to be understood.",
   },
   {
+    id: "professional-interaction",
     icon: UsersRound,
     title: "Professional interaction",
     description:
       "Handovers, consent conversations and team updates demand accuracy and tone.",
   },
   {
+    id: "evidence-of-progress",
     icon: ChartNoAxesCombined,
     title: "Evidence of progress",
     description:
@@ -47,6 +67,12 @@ const journey = [
   ["Assess", "Timed assessments and examinations with clear instructions."],
   ["Feedback", "Specific comments on language, structure and accuracy."],
   ["Improve", "Goals and a learning path built from your own evidence."],
+];
+
+const scenarioSteps = [
+  { icon: BookOpen, label: "Learn" },
+  { icon: MessageCircleMore, label: "Practise" },
+  { icon: ClipboardCheck, label: "Assess" },
 ];
 
 const principles = [
@@ -95,7 +121,62 @@ const faqs = [
 ];
 
 function SectionLabel({ children }: { children: string }) {
-  return <p className="section-label">{children}</p>;
+  return (
+    <Badge className="section-label" variant="ghost">
+      {children}
+    </Badge>
+  );
+}
+
+function ScenarioPreview() {
+  return (
+    <Card
+      aria-labelledby="scenario-title"
+      className="scenario-card"
+      role="article"
+    >
+      <CardHeader className="scenario-card-header">
+        <div className="scenario-card-top">
+          <Badge className="scenario-label" variant="ghost">
+            Practice scenario
+          </Badge>
+          <Badge className="scenario-duration" variant="outline">
+            12 min · B1–B2 range
+          </Badge>
+        </div>
+        <CardTitle className="scenario-card-title">
+          <h2 id="scenario-title">Handover to the night shift</h2>
+        </CardTitle>
+        <CardDescription className="scenario-description">
+          <p>
+            Practise structured SBAR communication and receive language feedback
+            on clarity and register.
+          </p>
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="scenario-card-content">
+        <blockquote className="scenario-quote">
+          <Badge className="scenario-quote-label" variant="ghost">
+            Situation
+          </Badge>
+          <span>
+            “Mr Okafor in bed 4 has had increasing shortness of breath since
+            18:00. I&apos;ve informed the doctor.”
+          </span>
+        </blockquote>
+        <div className="scenario-steps">
+          {scenarioSteps.map(({ icon: Icon, label }) => (
+            <Card className="scenario-step" key={label} role="group">
+              <CardContent className="scenario-step-content">
+                <Icon aria-hidden="true" />
+                <span>{label}</span>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
 function PublicFooter() {
@@ -107,11 +188,20 @@ function PublicFooter() {
             Ready to strengthen healthcare communication?
           </h2>
           <div className="final-cta-actions">
-            <Link className="button button-light" href="/sign-up">
+            <Link
+              className={buttonVariants({
+                variant: "default",
+                className: "button button-light",
+              })}
+              href="/sign-up"
+            >
               Get started
             </Link>
             <Link
-              className="button button-outline-light"
+              className={buttonVariants({
+                variant: "outline",
+                className: "button button-outline-light",
+              })}
               href="/institutions/enquiry"
             >
               Institution enquiry
@@ -153,7 +243,7 @@ function PublicFooter() {
           </div>
         </div>
         <div className="site-container public-footer-bottom">
-          <span>© VocaClin · RicOz Innovation</span>
+          <span>© VocaClin</span>
         </div>
       </footer>
     </>
@@ -168,10 +258,10 @@ export function HomePage() {
       <section aria-labelledby="hero-title" className="home-hero">
         <div className="site-container home-hero-grid">
           <div className="home-hero-copy">
-            <p className="eyebrow-pill">
-              <Stethoscope aria-hidden="true" />
+            <Badge className="eyebrow-pill" variant="secondary">
+              <Stethoscope aria-hidden="true" data-icon="inline-start" />
               Healthcare language learning &amp; assessment
-            </p>
+            </Badge>
             <h1 id="hero-title">
               Communicate with confidence in every healthcare setting.
             </h1>
@@ -182,11 +272,20 @@ export function HomePage() {
               teams.
             </p>
             <div className="home-hero-actions">
-              <Link className="button button-primary" href="/sign-up">
+              <Link
+                className={buttonVariants({
+                  variant: "default",
+                  className: "button button-primary",
+                })}
+                href="/sign-up"
+              >
                 Get started as a learner
               </Link>
               <Link
-                className="button button-secondary"
+                className={buttonVariants({
+                  variant: "outline",
+                  className: "button button-secondary",
+                })}
                 href="/institutions/enquiry"
               >
                 Enquire for your institution
@@ -197,41 +296,7 @@ export function HomePage() {
               is optional.
             </p>
           </div>
-          <article
-            aria-label="Practice scenario preview"
-            className="scenario-card"
-          >
-            <div className="scenario-card-top">
-              <span>Practice scenario</span>
-              <span className="scenario-duration">12 min · B1–B2 range</span>
-            </div>
-            <h2>Handover to the night shift</h2>
-            <p className="scenario-description">
-              Practise structured SBAR communication and receive language
-              feedback on clarity and register.
-            </p>
-            <blockquote className="scenario-quote">
-              <strong>Situation</strong>
-              <span>
-                “Mr Okafor in bed 4 has had increasing shortness of breath since
-                18:00. I&apos;ve informed the doctor.”
-              </span>
-            </blockquote>
-            <div className="scenario-steps">
-              <div>
-                <BookOpen aria-hidden="true" />
-                <span>Learn</span>
-              </div>
-              <div>
-                <MessageCircleMore aria-hidden="true" />
-                <span>Practise</span>
-              </div>
-              <div>
-                <ClipboardCheck aria-hidden="true" />
-                <span>Assess</span>
-              </div>
-            </div>
-          </article>
+          <ScenarioPreview />
         </div>
       </section>
 
@@ -251,14 +316,27 @@ export function HomePage() {
             conversations and precise handovers, often under time pressure.
           </p>
           <div className="challenge-grid">
-            {challenges.map(({ icon: Icon, title, description }) => (
-              <article className="feature-card" key={title}>
-                <span className="feature-icon">
-                  <Icon aria-hidden="true" />
-                </span>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </article>
+            {challenges.map(({ icon: Icon, id, title, description }) => (
+              <Card
+                aria-labelledby={`challenge-${id}`}
+                className="feature-card"
+                key={id}
+                role="article"
+              >
+                <CardHeader>
+                  <span className="feature-icon">
+                    <Icon aria-hidden="true" />
+                  </span>
+                  <CardTitle>
+                    <h3 id={`challenge-${id}`}>{title}</h3>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    <p>{description}</p>
+                  </CardDescription>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -276,17 +354,30 @@ export function HomePage() {
           </h2>
           <ol className="journey-grid">
             {journey.map(([title, description], index) => (
-              <li
-                className={
-                  index === journey.length - 1
-                    ? "journey-card journey-card-highlight"
-                    : "journey-card"
-                }
-                key={title}
-              >
-                <span className="journey-number">{index + 1}</span>
-                <h3>{title}</h3>
-                <p>{description}</p>
+              <li key={title}>
+                <Card
+                  aria-labelledby={`journey-${title}`}
+                  className={
+                    index === journey.length - 1
+                      ? "journey-card journey-card-highlight"
+                      : "journey-card"
+                  }
+                  role="article"
+                >
+                  <CardHeader>
+                    <Badge className="journey-number" variant="default">
+                      {index + 1}
+                    </Badge>
+                    <CardTitle>
+                      <h3 id={`journey-${title}`}>{title}</h3>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription>
+                      <p>{description}</p>
+                    </CardDescription>
+                  </CardContent>
+                </Card>
               </li>
             ))}
           </ol>
@@ -298,52 +389,69 @@ export function HomePage() {
         className="capabilities-section"
       >
         <div className="site-container capabilities-grid">
-          <article className="capability-card" id="explore-learning">
-            <BookOpen aria-hidden="true" className="feature-icon" />
-            <h2>Learning and practice</h2>
-            <ul>
-              <li>
-                <Check aria-hidden="true" />
-                Courses with vocabulary, reading, listening and writing
-                activities
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Healthcare communication scenarios focused on language, not
-                clinical decisions
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Save and resume any activity
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Optional AI language feedback you can switch off
-              </li>
-            </ul>
-          </article>
-          <article className="capability-card">
-            <ClipboardCheck aria-hidden="true" className="feature-icon" />
-            <h2>Assessment and progress</h2>
-            <ul>
-              <li>
-                <Check aria-hidden="true" />
-                Skill-wise progress for reading, listening, writing and speaking
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Results with feedback and recommended next steps
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Optional placement to guide where you start
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Private by default; you choose what to share
-              </li>
-            </ul>
-          </article>
+          <Card
+            className="capability-card"
+            id="explore-learning"
+            role="article"
+          >
+            <CardHeader>
+              <BookOpen aria-hidden="true" className="feature-icon" />
+              <CardTitle>
+                <h2>Learning and practice</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul>
+                <li>
+                  <Check aria-hidden="true" />
+                  Courses with vocabulary, reading, listening and writing
+                  activities
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Healthcare communication scenarios focused on language, not
+                  clinical decisions
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Save and resume any activity
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Optional AI language feedback you can switch off
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+          <Card className="capability-card" role="article">
+            <CardHeader>
+              <ClipboardCheck aria-hidden="true" className="feature-icon" />
+              <CardTitle>
+                <h2>Assessment and progress</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul>
+                <li>
+                  <Check aria-hidden="true" />
+                  Skill-wise progress for reading, listening, writing and
+                  speaking
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Results with feedback and recommended next steps
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Optional placement to guide where you start
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Private by default; you choose what to share
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
         </div>
         <p className="site-container placement-disclaimer">
           <Info aria-hidden="true" /> Placement and progress indicators are
@@ -357,46 +465,67 @@ export function HomePage() {
         className="audience-section"
       >
         <div className="site-container audience-grid">
-          <article className="audience-card">
-            <span className="audience-tag">For individuals</span>
-            <h2>Learn at your own pace, with a clear next step.</h2>
-            <p>
-              Set goals, follow a course, practise real scenarios and see
-              exactly how you are progressing.
-            </p>
-            <Link className="button button-primary" href="/sign-up">
+          <Card className="audience-card" role="article">
+            <CardHeader>
+              <Badge className="audience-tag" variant="secondary">
+                For individuals
+              </Badge>
+              <CardTitle>
+                <h2>Learn at your own pace, with a clear next step.</h2>
+              </CardTitle>
+              <CardDescription>
+                <p>
+                  Set goals, follow a course, practise real scenarios and see
+                  exactly how you are progressing.
+                </p>
+              </CardDescription>
+            </CardHeader>
+            <CardFooterLink className="button button-primary" href="/sign-up">
               Create a free account
-            </Link>
-          </article>
-          <article
+            </CardFooterLink>
+          </Card>
+          <Card
             className="audience-card audience-card-dark"
             id="institutions"
+            role="article"
           >
-            <span className="audience-tag audience-tag-amber">
-              For institutions
-            </span>
-            <h2>
-              Support your teams with assigned learning and private
-              examinations.
-            </h2>
-            <ul>
-              <li>
-                <Check aria-hidden="true" />
-                Invite members and organise cohorts
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Assign platform-owned programmes
-              </li>
-              <li>
-                <Check aria-hidden="true" />
-                Run private examinations and view aggregated reports
-              </li>
-            </ul>
-            <Link className="button button-amber" href="/institutions/enquiry">
+            <CardHeader>
+              <Badge
+                className="audience-tag audience-tag-amber"
+                variant="secondary"
+              >
+                For institutions
+              </Badge>
+              <CardTitle>
+                <h2>
+                  Support your teams with assigned learning and private
+                  examinations.
+                </h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul>
+                <li>
+                  <Check aria-hidden="true" />
+                  Invite members and organise cohorts
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Assign platform-owned programmes
+                </li>
+                <li>
+                  <Check aria-hidden="true" />
+                  Run private examinations and view aggregated reports
+                </li>
+              </ul>
+            </CardContent>
+            <CardFooterLink
+              className="button button-amber"
+              href="/institutions/enquiry"
+            >
               Enquire for your institution
-            </Link>
-          </article>
+            </CardFooterLink>
+          </Card>
         </div>
       </section>
 
@@ -407,11 +536,19 @@ export function HomePage() {
           </h2>
           <div className="principles-grid">
             {principles.map(({ icon: Icon, title, description }) => (
-              <article className="principle-card" key={title}>
-                <Icon aria-hidden="true" />
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </article>
+              <Card className="principle-card" key={title} role="article">
+                <CardHeader>
+                  <Icon aria-hidden="true" />
+                  <CardTitle>
+                    <h3>{title}</h3>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>
+                    <p>{description}</p>
+                  </CardDescription>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -420,20 +557,46 @@ export function HomePage() {
       <section aria-labelledby="faq-title" className="faq-section" id="faq">
         <div className="faq-container">
           <h2 id="faq-title">Frequently asked questions</h2>
-          <div className="faq-list">
-            {faqs.map(({ question, answer }, index) => (
-              <details className="faq-item" key={question} open={index === 0}>
-                <summary>
+          <Accordion className="faq-list" defaultValue={[faqs[0].question]}>
+            {faqs.map(({ question, answer }) => (
+              <AccordionItem
+                className="faq-item"
+                key={question}
+                value={question}
+              >
+                <AccordionTrigger className="faq-trigger">
                   {question}
-                  <span aria-hidden="true" />
-                </summary>
-                <p>{answer}</p>
-              </details>
+                </AccordionTrigger>
+                <AccordionContent className="faq-answer">
+                  <p>{answer}</p>
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
       </section>
       <PublicFooter />
     </main>
+  );
+}
+
+function CardFooterLink({
+  children,
+  className,
+  href,
+}: {
+  children: ReactNode;
+  className: string;
+  href: string;
+}) {
+  return (
+    <CardFooter className="audience-card-action">
+      <Link
+        className={buttonVariants({ variant: "default", className })}
+        href={href}
+      >
+        {children}
+      </Link>
+    </CardFooter>
   );
 }

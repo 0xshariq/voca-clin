@@ -53,10 +53,11 @@
 
 SPEC-05, SPEC-13 and SPEC-14 remain in `scope.md` as later-release or conditional gates; they do not authorize public contributor/organization ecosystems, content-sharing expansion or proficiency credentials in R1.
 
-## Phase 1 implementation conventions
+## Phase 1 and 2 implementation conventions
 
-- **Accepted for Phase 1 by the product owner:** Vitest for unit tests and Playwright for browser-level checks. The decision applies to the Phase 1 shell and does not select a runtime schema validator.
-- **Still open before shared runtime schemas or production logic:** select and record the runtime validation library. TypeScript compile-time checking is not a substitute for validating untrusted input.
+- **Accepted for Phase 1 by the product owner:** Vitest for unit tests and Playwright for browser-level checks.
+- **Selected for Phase 2:** Zod 4 for runtime validation and inferred contract types. This engineering selection does not resolve any product-owner, Ricoz/company, legal/security, academic or operational gate.
+- TypeScript compile-time checking is not a substitute for validating untrusted input.
 
 ## Status
 

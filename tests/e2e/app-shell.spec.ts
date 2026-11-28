@@ -20,12 +20,59 @@ test("homepage follows the approved public design at desktop size", async ({
   ).toBeVisible();
 });
 
+test("Explore learning links reach the section and cards have accessible names", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const learningCard = page.locator("#explore-learning");
+  await expect(learningCard).toBeVisible();
+  await expect(
+    page.getByRole("article", { name: "Specialised vocabulary" }),
+  ).toBeVisible();
+
+  await page
+    .getByRole("navigation", { name: "Primary navigation" })
+    .getByRole("link", { name: "Explore learning" })
+    .click();
+  await expect(page).toHaveURL(/#explore-learning$/);
+
+  await page
+    .locator(".public-footer")
+    .getByRole("link", { name: "Explore learning" })
+    .click();
+  await expect(page).toHaveURL(/#explore-learning$/);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("button", { name: "Open navigation menu" }).click();
+  await page
+    .getByRole("navigation", { name: "Mobile navigation" })
+    .getByRole("link", { name: "Explore learning" })
+    .click();
+  await expect(page).toHaveURL(/#explore-learning$/);
+});
+
+test("clicking a non-button input addon focuses its control", async ({ page }) => {
+  await page.goto("/sign-in");
+
+  const password = page.getByLabel("Password");
+  await expect(password).toBeVisible();
+  await page
+    .locator('.access-input-wrap [data-slot="input-group-addon"]')
+    .click();
+  await expect(password).toBeFocused();
+});
+
 test("mobile navigation reaches the how-it-works section", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
-  const menu = page.getByText("Menu", { exact: true });
+  const menu = page.getByRole("button", { name: "Open navigation menu" });
   await expect(menu).toBeVisible();
+  await expect(page.locator(".mobile-navigation")).toHaveAttribute(
+    "data-hydrated",
+    "true",
+  );
   await menu.click();
 
   const mobileNavigation = page.getByRole("navigation", {

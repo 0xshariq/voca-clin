@@ -153,7 +153,7 @@ R1 foundations may support later capabilities without implementing those capabil
 - API request/response contracts that genuinely cross client/server boundaries are canonical under `src/shared/contracts/`, organized by capability and operation.
 - Runtime schemas are co-located with the relevant contract or feature boundary where appropriate. Do not duplicate a type separately when it can be inferred from the canonical schema.
 - Do not expose domain entities or internal persistence documents as public API responses.
-- Runtime validation library is an implementation decision to settle before the first schema is added. Do not assume an unapproved library.
+- Zod 4 is the selected runtime validation library for shared and boundary schemas, recorded during Phase 2. This engineering choice does not approve any open product, provider or deployment decision.
 - TypeScript compile-time typing does not replace validation of untrusted input.
 - Do not add universal barrels that re-export every contract or every module's private types.
 
@@ -456,7 +456,7 @@ Establish the small set of cross-cutting server conventions used by all modules:
 
 1. Define server-only environment access and validate required configuration at startup/runtime boundaries.
 2. Define the application error categories and safe external error mapping.
-3. Choose and configure the runtime validation library based on current project/company constraints.
+3. Use the Phase 2 engineering selection, Zod 4, for runtime validation and inferred contract types.
 4. Define the convention for application operations and dependency injection/composition.
 5. Define API response/error conventions for versioned Route Handlers.
 6. Define the shared contract/schema organization and inference rules.

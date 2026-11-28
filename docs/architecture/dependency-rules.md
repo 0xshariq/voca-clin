@@ -37,6 +37,10 @@ These rules summarize `scope.md` for implementation reviews. The architecture an
 - Clerk, email, object storage, AI, observability, database and queue providers are accessed through infrastructure adapters. Do not allow vendor types to leak into domain contracts.
 - Secrets and sensitive learner content must not appear in source, logs, audit payloads or committed setup instructions.
 
-## Phase gate
+## Phase 2 conventions
 
-Before implementing runtime schemas, select and approve a runtime validation library. Select the test framework and commands during Phase 0, then add or change test scripts in the relevant approved implementation phase, such as Phase 1. Phase 0 records current tooling and unresolved choices; it does not install dependencies or begin feature implementation.
+- Zod 4 is the selected runtime validation library. Keep schemas at the relevant contract or trust boundary and infer TypeScript types from those schemas where practical.
+- Application operations are explicit functions with their dependencies passed in; cross-module orchestration belongs in the application layer and uses module public entry points. Do not add a service locator or an empty composition root. `create-application.ts` remains deferred until concrete module services exist to wire.
+- Versioned Route Handlers serialize the shared error shape through the safe application error mapper; never return stack traces, internal exception messages, or validation input values.
+- Keep environment access and logging behind server-only infrastructure modules. Structured logs contain operational metadata only, never learner content, request bodies, secrets or credentials.
+- Vitest and Playwright remain the selected test tools. Phase 0 records current tooling and unresolved product/company choices; it does not resolve provider or deployment approvals.
